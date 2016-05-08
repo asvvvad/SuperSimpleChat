@@ -1,0 +1,27 @@
+body
+{
+	color: white;
+	background-color: black;
+}
+
+.center
+{
+	text-align: center;
+}
+
+#title
+{
+	font-family: sans-serif;
+}
+
+#messages
+{
+	width: 100%;
+	min-height: 300px;
+}
+
+#messageArea
+{
+	margin-left: 3em;
+	margin-right: 3em;
+}
