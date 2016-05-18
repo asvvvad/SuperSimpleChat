@@ -15,12 +15,30 @@ else
 
 	if (isset($_GET['submit']))
 	{
-		$text = strip_tags($_POST['message']);
+		if (isset($_SERVER['HTTP_REFERER']))
+		{
+			$ref = parse_url($_SERVER['HTTP_REFERER']);
+			if ($ref['host'] != 'chaoswebs.net' )
+			{
+				die('Cross site request forgery detected');
+			}
+		}
+		else
+		{
+			die('Cross site request forgery detected');
+
+		}
+
+		$text = $_POST['message'];
 		if (strlen($text) <= 250 and $text != '' and strlen(trim($str)) == 0)
 		{
-			//file_put_contents('./messages.txt', $user . ' - ' . $text . '<br><br>', FILE_APPEND);
 
 			$text = wordwrap($text, 50, "-<br>", true);
+			$text = strip_tags($text);
+			$text = preg_replace(
+              "~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~",
+              "<a href=\"\\0\">\\0</a>", 
+              $text);
 
 			$fileContents = file_get_contents($file);
 
@@ -40,7 +58,7 @@ else
 	<link rel='stylesheet' href='./theme.min.css'>
 </head>
 <body>
-	<h1 class='center' id='title'>Chaos Webs Chatroom</h1>
+	<h1 class='center' id='title'>Chaos Webs Chat Room</h1>
 
 	<div id='messageArea'>
 		<iframe src='./messages.php' id='messages'></iframe>
