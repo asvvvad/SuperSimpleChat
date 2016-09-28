@@ -1,7 +1,13 @@
 <?php
 session_start();
-
 date_default_timezone_set('UTC');
+
+$bytes = 12;
+if (! isset($_SESSION['CSRFToken']))
+{
+  $_SESSION['CSRFToken'] = bin2hex(openssl_random_pseudo_bytes($bytes));
+}
+$CSRFToken = $_SESSION['CSRFToken'];
 
 $text = '';
 
@@ -69,6 +75,7 @@ else
 		<form method='post' action='./chat.php?submit=true'>
 		<span style='font-family: sans-serif;'>Message:</span> <input type='text' name='message' placeholder='Enter Message:' maxlength='250' autocomplete='off'>
 		<br><br>
+		<input type='hidden' name='csrf' value='<?php echo $CSRFToken; ?>'>
 		<input type='submit' value='Send' style=''>
 		</form>
 	</div>

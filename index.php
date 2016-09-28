@@ -14,7 +14,7 @@ if (isset($_SESSION['chatUser']))
 	<link rel='stylesheet' href='./theme.min.css'>
 </head>
 <body>
-	<h1 class='center' id='title'>Chaos Webs Chatroom</h1>
+	<h1 class='center' id='title'>Chaos Webs Chat Room</h1>
 	<p class='center'>Choose a nickname, max 12 chars:</p>
 	<div class='center'>
 		<form method='post' action='./login.php'>
