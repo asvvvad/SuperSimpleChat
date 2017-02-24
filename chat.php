@@ -22,20 +22,6 @@ else
 
 	if (isset($_GET['submit']))
 	{
-		if (isset($_SERVER['HTTP_REFERER']))
-		{
-			$ref = parse_url($_SERVER['HTTP_REFERER']);
-			if ($ref['host'] != 'chaoswebs.net' )
-			{
-				die('Cross site request forgery detected');
-			}
-		}
-		else
-		{
-			die('Cross site request forgery detected');
-
-		}
-
 		$text = $_POST['message'];
 		if (strlen($text) <= 250 and $text != '' and strlen(trim($str)) == 0)
 		{
