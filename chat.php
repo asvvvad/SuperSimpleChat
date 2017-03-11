@@ -30,12 +30,12 @@ else
 			$text = strip_tags($text);
 			$text = preg_replace(
               "~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~",
-              "<a href=\"\\0\">\\0</a>", 
+              "<a href=\"\\0\" target=\"_blank\">\\0</a>", 
               $text);
 
 			$fileContents = file_get_contents($file);
 
-			file_put_contents('./messages.txt', date('h:i:s A') . ' - ' . $user . ' - ' . $text . '<br><br>' . file_get_contents('./messages.txt'), LOCK_EX);
+			file_put_contents('./messages.txt', date('h:i:s A') . ' - ' . $user . ' - ' . $text . '<br><br>', LOCK_EX . FILE_APPEND);
 			header('location: ./chat.php');
 			die(0);
 		}
@@ -54,12 +54,12 @@ else
 	<h1 class='center' id='title'>Chaos Webs Chat Room</h1>
 
 	<div id='messageArea'>
-		<iframe src='./messages.php' id='messages'></iframe>
+		<iframe src='./messages.php#scroll' id='messages' sandbox="allow-popups"></iframe>
 	</div>
 	<div class='center' id='enter'>
 		<br>
 		<form method='post' action='./chat.php?submit=true'>
-		<span style='font-family: sans-serif;'>Message:</span> <input type='text' name='message' placeholder='Enter Message:' maxlength='250' autocomplete='off'>
+		<span style='font-family: sans-serif;'>Message:</span> <input required type='text' name='message' placeholder='Enter Message:' maxlength='250' autocomplete='off'>
 		<br><br>
 		<input type='hidden' name='csrf' value='<?php echo $CSRFToken; ?>'>
 		<input type='submit' value='Send' style=''>
